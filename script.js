@@ -20,7 +20,7 @@ function getPlayerChoice(){
     return choice;
 }
 
-function singleRound(playerSelection, computerSelection){
+function singleRound(playerSelection, computerSelection = getComputerChoice){
     if(playerSelection === computerSelection){
         console.log("You guys picked the same thing! Try again!")
         return singleRound(getPlayerChoice(), getComputerChoice());
@@ -63,6 +63,20 @@ function playGame(){
         return ("You win!");
     }
 }
+rock = document.getElementById('rock');
+rock.addEventListener('click', function(){
+    console.log(singleRound('rock'));
+});
+
+scissor = document.getElementById('scissor');
+scissor.addEventListener('click', function(){
+    console.log(singleRound('scissor'));
+});
+
+paper = document.getElementById('paper');
+paper.addEventListener('click', function(){
+    console.log(singleRound('paper'));
+});
 
 // console.log(singleRound(getPlayerChoice(), getComputerChoice()));
-console.log(playGame());
+// console.log(playGame());
