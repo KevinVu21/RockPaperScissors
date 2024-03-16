@@ -1,5 +1,10 @@
 let computer = 0;
 let user = 0;
+userDiv = document.getElementById('user');
+userDiv.textContent = "You: " + user
+
+computerDiv = document.getElementById('computer');
+computerDiv.textContent = "Computer: " + computer
 function getComputerChoice(){
      let num = Math.floor(Math.random() * 3) + 1;
      if(num === 1){
@@ -11,57 +16,62 @@ function getComputerChoice(){
      }
 }
 
-function getPlayerChoice(){
-    let choice = prompt("Pick Rock, Paper, or Scissor");
-    choice = choice.toLowerCase();
-    if(choice != "rock" && choice != "paper" && choice != "scissor"){
-        return getPlayerChoice();
-    }
-    return choice;
-}
+// function getPlayerChoice(){
+//     let choice = prompt("Pick Rock, Paper, or Scissor");
+//     choice = choice.toLowerCase();
+//     if(choice != "rock" && choice != "paper" && choice != "scissor"){
+//         return getPlayerChoice();
+//     }
+//     return choice;
+// }
 
-function singleRound(playerSelection, computerSelection = getComputerChoice){
-    if(playerSelection === computerSelection){
-        console.log("You guys picked the same thing! Try again!")
-        return singleRound(getPlayerChoice(), getComputerChoice());
-    }else if(playerSelection === "rock"){
+function singleRound(playerSelection, computerSelection = getComputerChoice()){
+    if(playerSelection === "rock"){
         if(computerSelection === "paper"){
             ++computer;
-            return ("You Lose! Paper beats Rock");
+            computerDiv.textContent = "Computer: " + computer
+
         }else{
             ++user;
-            return ("You win!");
+            userDiv.textContent = "You: " + user
+
         }
     }else if(playerSelection === "scissor"){
         if(computerSelection === "rock"){
             ++computer;
-            return ("You lose! Rock beats Scissors")
+            computerDiv.textContent = "Computer: " + computer
+
         }else{
             ++user
-            return ("You win!");
+            userDiv.textContent = "You: " + user
+
         }
     }else if(playerSelection === "paper"){
         if(computerSelection === "rock"){
             ++user;
-            return ("You win!");
+            userDiv.textContent = "You: " + user
+
         }else{
             ++computer;
-            return ("You lose! Scissors beat Paper");
+            computerDiv.textContent = "Computer: " + computer
+
         }
+    }
+    if(user === 5){
+        end("You win :)")
+    }
+    if(computer === 5){
+        end("Computer wins :(")
     }
 }
 
 
-function playGame(){
-    while(computer < 5 && user < 5){
-        singleRound(getPlayerChoice(), getComputerChoice());
-        console.log("You: " + user + "\nComputer: " + computer);
-    }
-    if(computer === 5){
-         return("You lose!");
-    }else{
-        return ("You win!");
-    }
+function end(message){
+    alert(message);
+    user = 0;
+    computer = 0;
+    userDiv.textContent = "You: " + user
+    computerDiv.textContent = "Computer: " + computer
 }
 rock = document.getElementById('rock');
 rock.addEventListener('click', function(){
@@ -77,6 +87,7 @@ paper = document.getElementById('paper');
 paper.addEventListener('click', function(){
     console.log(singleRound('paper'));
 });
+
 
 // console.log(singleRound(getPlayerChoice(), getComputerChoice()));
 // console.log(playGame());
